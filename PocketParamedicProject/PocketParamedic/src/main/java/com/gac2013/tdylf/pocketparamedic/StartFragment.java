@@ -17,7 +17,7 @@ public class StartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ViewGroup vg = (ViewGroup) inflater.inflate(R.layout.main, container, false);
+        ViewGroup vg = (ViewGroup) inflater.inflate(R.layout.start, container, false);
 
         ListView listView = (ListView) vg.findViewById(R.id.listView);
 
