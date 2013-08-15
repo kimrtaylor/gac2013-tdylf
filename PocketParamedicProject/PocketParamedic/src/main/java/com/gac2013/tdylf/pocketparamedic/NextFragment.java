@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
-public class NextFragment extends Fragment implements ContinuousSpeechRecognizer.RecognizedTextListener {
+public class NextFragment extends Fragment
+        implements ContinuousSpeechRecognizer.RecognizedTextListener, TextToSpeech.OnInitListener {
 
     private ContinuousSpeechRecognizer csr;
     private Context context;
+    private TextToSpeech tts;
 
 
     @Override
@@ -39,13 +43,25 @@ public class NextFragment extends Fragment implements ContinuousSpeechRecognizer
         ViewGroup vg = (ViewGroup)inflater.inflate(R.layout.instructions, container, false);
         ((TextView)vg.findViewById(R.id.tvInstr)).setText("" + currentState.getId());
         ((ImageView)vg.findViewById(R.id.ivInstr)).setImageResource(currentState.getImageResId());
+
+        context = getActivity().getApplicationContext();
+
+        tts = new TextToSpeech(context, this);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                tts.speak(StateMachine.getCurrentState().getQuestion(), TextToSpeech.QUEUE_ADD, null);
+            }
+        }, 2000);
+
         return vg;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        context = getActivity().getApplicationContext();
+
         csr = new ContinuousSpeechRecognizer(context);
         csr.setListener(this);
         new Handler().postDelayed(new Runnable() {
@@ -53,7 +69,7 @@ public class NextFragment extends Fragment implements ContinuousSpeechRecognizer
             public void run() {
                 csr.startRecognition();
             }
-        }, 2000);
+        }, 3000);
 
     }
 
@@ -85,5 +101,23 @@ public class NextFragment extends Fragment implements ContinuousSpeechRecognizer
         int state = StateMachine.getCurrentState().getNoAnswered();
         StateMachine.setCurrentState(state);
         ((MainActivity)getActivity()).setupInstructionFragment();
+    }
+
+    @Override
+    public void onInit(int status) {
+
+        if (status == TextToSpeech.SUCCESS) {
+
+            int result = tts.setLanguage(Locale.US);
+
+            if (result == TextToSpeech.LANG_MISSING_DATA
+                    || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS", "This Language is not supported");
+            }
+
+        } else {
+            Log.e("TTS", "Initialization Failed!");
+        }
+
     }
 }
