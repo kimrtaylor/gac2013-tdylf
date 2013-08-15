@@ -41,7 +41,7 @@ public class State {
         return doneAnswered;
     }
 
-    public int getImageRference() {
+    public int getImageResId() {
         return imageRference;
     }
 }
