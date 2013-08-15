@@ -1,13 +1,11 @@
 package com.gac2013.tdylf.pocketparamedic;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
@@ -41,12 +39,6 @@ public class NextFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-
-        FragmentManager fm = getFragmentManager();
-        for (int i = 0; i < fm.getBackStackEntryCount(); i++)
-            Log.e(getClass().getName(), i + " -> " + fm.getBackStackEntryAt(i).getName());
 
         State currentState = StateMachine.getCurrentState();
 
@@ -124,13 +116,7 @@ public class NextFragment extends Fragment
 
         csr = new ContinuousSpeechRecognizer(context);
         csr.setListener(this);
-        /*new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                csr.startRecognition();
-            }
-        }, 3000);
-*/
+
     }
 
     @Override
@@ -187,18 +173,20 @@ public class NextFragment extends Fragment
 
     private void performYesTransition() {
         int state = StateMachine.getCurrentState().getYesAnswered();
-        StateMachine.setCurrentState(state);
-        ((MainActivity) getActivity()).setupInstructionScreen();
+        performTransition(state);
     }
 
     private void performNoTransition() {
         int state = StateMachine.getCurrentState().getNoAnswered();
-        StateMachine.setCurrentState(state);
-        ((MainActivity) getActivity()).setupInstructionScreen();
+        performTransition(state);
     }
 
     private void performDoneTransition() {
         int state = StateMachine.getCurrentState().getDoneAnswered();
+        performTransition(state);
+    }
+
+    private void performTransition(int state) {
         StateMachine.setCurrentState(state);
         ((MainActivity) getActivity()).setupInstructionScreen();
     }
