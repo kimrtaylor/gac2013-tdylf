@@ -54,7 +54,7 @@
                 android:textSize="66sp"
                 android:id="@+id/bYesInstr"
                 android:layout_weight="1"
-                android:background="@string/our_green"
+                android:background="#177339"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="30dp"
