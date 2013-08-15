@@ -38,7 +38,7 @@ public class StateMachine {
     }
 
     public boolean isStateDo(int id){
-        return getStateById(id).getDoneAnswered() != null;
+        return getStateById(id).getDoneAnswered() != NONE;
     }
 
     public boolean isStateAsk(int id){
