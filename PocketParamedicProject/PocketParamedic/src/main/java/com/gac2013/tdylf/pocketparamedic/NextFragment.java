@@ -186,26 +186,7 @@ public class NextFragment extends Fragment
                     || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("TTS", "This language is not supported");
             } else {
-                tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
-                    @Override
-                    public void onStart(String utteranceId) {
-                    }
-
-                    @Override
-                    public void onDone(String utteranceId) {
-                        Log.e(getClass().getName(), "Utterance " + utteranceId + " completed");
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                csr.startRecognition();
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onError(String utteranceId) {
-                    }
-                });
+                tts.setOnUtteranceProgressListener(new InternalUtteranceProgressListener());
 
                 HashMap<String, String> myHashAlarm = new HashMap<String, String>();
                 myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(AudioManager.STREAM_ALARM));
@@ -217,6 +198,34 @@ public class NextFragment extends Fragment
             Log.e("TTS", "Initialization Failed!");
         }
 
+
+    }
+
+    private class InternalUtteranceProgressListener extends UtteranceProgressListener {
+        @Override
+        public void onStart(String utteranceId) {
+        }
+
+        @Override
+        public void onDone(String utteranceId) {
+            Log.e(getClass().getName(), "Utterance " + utteranceId + " completed");
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (StateMachine.getCurrentState().getId() == StateMachine.DO_CPR)
+                        playStayinAlive();
+                    else
+                        csr.startRecognition();
+                }
+            });
+        }
+
+        @Override
+        public void onError(String utteranceId) {
+        }
+    }
+
+    private void playStayinAlive() {
 
     }
 }
