@@ -222,6 +222,8 @@ public class NextFragment extends Fragment
 
     }
 
+
+
     private class InternalUtteranceProgressListener extends UtteranceProgressListener {
         @Override
         public void onStart(String utteranceId) {
@@ -234,17 +236,21 @@ public class NextFragment extends Fragment
             if (StateMachine.getCurrentState().getId() == StateMachine.DO_CPR) {
                 playSound();
             } else
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        csr.startRecognition();
-                    }
-                });
+                startVrOnUiThread();
         }
 
         @Override
         public void onError(String utteranceId) {
         }
+    }
+
+    private void startVrOnUiThread() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                csr.startRecognition();
+            }
+        });
     }
 
     private void playSound() {
@@ -265,7 +271,7 @@ public class NextFragment extends Fragment
 
             @Override
             public void onCompletion(MediaPlayer mp) {
-
+                startVrOnUiThread();
             }
 
         });
