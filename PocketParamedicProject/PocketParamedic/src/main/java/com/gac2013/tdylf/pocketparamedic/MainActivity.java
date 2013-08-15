@@ -10,18 +10,41 @@ import android.view.Menu;
 public class MainActivity extends Activity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
         setContentView(R.layout.main);
 
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.add(R.id.fragmentContainer, new StartFragment(), "instructions");
-        //ft.addToBackStack(null);
-        ft.commit();
+        if (bundle == null)
+            setupStartScreen();
 
+            /*
+        if (bundle != null) {
+            int state = bundle.getInt("STATE");
+            StateMachine.setCurrentState(state);
+            if (state == 0) {
+                setupStartScreen();
+            } else {
+                setupInstructionScreen();
+            }
+        } else
+            setupStartScreen();*/
     }
 
-    public void setupInstructionFragment() {
+    private void setupStartScreen() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.add(R.id.fragmentContainer, new StartFragment(), "instructions");
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+
+        bundle.putInt("STATE", StateMachine.getCurrentState().getId());
+    }
+
+    public void setupInstructionScreen() {
         FragmentManager fm = getFragmentManager();
         for (int i = 0; i < fm.getBackStackEntryCount(); i++)
             Log.e(getClass().getName(), i + " -> " + fm.getBackStackEntryAt(i).getName());
@@ -32,7 +55,7 @@ public class MainActivity extends Activity {
         FragmentTransaction ft = fm.beginTransaction();
         //ft.remove(StartFragment.this);
         ft.replace(R.id.fragmentContainer, new NextFragment(), "instructions");
-        //ft.addToBackStack(null);
+        ft.addToBackStack(null);
         //ft.remove();
         ft.commit();
     }
@@ -45,8 +68,9 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    /*
     @Override
     public void onBackPressed() {
-    }
+    }*/
 
 }

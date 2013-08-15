@@ -134,19 +134,19 @@ public class NextFragment extends Fragment
     private void performYesTransition() {
         int state = StateMachine.getCurrentState().getYesAnswered();
         StateMachine.setCurrentState(state);
-        ((MainActivity) getActivity()).setupInstructionFragment();
+        ((MainActivity) getActivity()).setupInstructionScreen();
     }
 
     private void performNoTransition() {
         int state = StateMachine.getCurrentState().getNoAnswered();
         StateMachine.setCurrentState(state);
-        ((MainActivity) getActivity()).setupInstructionFragment();
+        ((MainActivity) getActivity()).setupInstructionScreen();
     }
 
     private void performDoneTransition() {
         int state = StateMachine.getCurrentState().getDoneAnswered();
         StateMachine.setCurrentState(state);
-        ((MainActivity) getActivity()).setupInstructionFragment();
+        ((MainActivity) getActivity()).setupInstructionScreen();
     }
 
     @Override

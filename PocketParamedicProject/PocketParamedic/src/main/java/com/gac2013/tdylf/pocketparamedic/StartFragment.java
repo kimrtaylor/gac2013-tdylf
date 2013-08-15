@@ -2,10 +2,7 @@ package com.gac2013.tdylf.pocketparamedic;
 
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +36,7 @@ public class StartFragment extends Fragment {
 
                 Toast.makeText(getActivity().getApplicationContext(), "onItemClick", Toast.LENGTH_LONG).show();
 
-                ((MainActivity)getActivity()).setupInstructionFragment();
+                ((MainActivity)getActivity()).setupInstructionScreen();
 
             }
         });
