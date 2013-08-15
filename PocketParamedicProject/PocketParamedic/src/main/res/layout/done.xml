@@ -36,10 +36,10 @@
                 android:layout_width="0px"
                 android:layout_height="match_parent"
                 android:id="@+id/bYesInstr"
-                android:text="YES"
+                android:text="DONE"
                 android:textColor="@android:color/white"
                 android:textSize="66sp"
-                android:background="#177339"
+                android:background="@string/our_green"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="30dp"
@@ -49,17 +49,7 @@
 
                 />
 
-        <Button
-                android:layout_width="0px"
-                android:layout_height="match_parent"
-                android:text="NO"
-                android:textSize="66sp"
-                android:textColor="@android:color/white"
-                android:id="@+id/bNoInstr"
-                android:layout_weight="1"
-                android:background="@android:color/holo_red_dark"
-                android:layout_marginStart="30dp"
-                android:layout_marginBottom="30dp"/>
+
     </LinearLayout>
 
 </LinearLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="fill_parent"
+              android:layout_weight="1"
+        >
+
+    <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/ivInstr"
+            android:background="@drawable/firstaid1"
+            android:layout_weight="1"/>
+
+    <LinearLayout
+
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            >
+
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0px"
+                android:layout_weight="1"
+                android:text="New Text"
+                android:id="@+id/tvInstr"
+                android:layout_gravity="center"
+                android:layout_below="@id/ivInstr"
+                android:textSize="34dp"
+                android:gravity="bottom"
+                android:textAlignment="center"
+                android:layout_marginBottom="45dp"/>
+
+        <LinearLayout
+
+                android:orientation="horizontal"
+                android:layout_height="0px"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:paddingBottom="45dp"
+
+                >
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="DONE"
+                    android:textColor="@android:color/white"
+                    android:textSize="66sp"
+                    android:id="@+id/bYesInstr"
+                    android:layout_weight="1"
+                    android:background="#177339"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginBottom="30dp"
+
+                    />
+
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>
