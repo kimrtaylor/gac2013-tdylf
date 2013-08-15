@@ -70,6 +70,22 @@ public class NextFragment extends Fragment
                     performDoneTransition();
                 }
             });
+        } else {
+            Button btYes = (Button) rootView.findViewById(R.id.bYesInstr);
+            btYes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    performYesTransition();
+                }
+            });
+
+            Button btNo = (Button) rootView.findViewById(R.id.bNoInstr);
+            btNo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    performNoTransition();
+                }
+            });
         }
     }
 
