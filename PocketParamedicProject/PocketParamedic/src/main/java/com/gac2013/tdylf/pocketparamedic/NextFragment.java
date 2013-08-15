@@ -88,6 +88,9 @@ public class NextFragment extends Fragment
         } else if (results.contains("no")) {
             Toast.makeText(context, "no", Toast.LENGTH_SHORT).show();
             performNoTransition();
+        } else if (results.contains("done")) {
+            Toast.makeText(context, "done", Toast.LENGTH_SHORT).show();
+            performDoneTransition();
         }
     }
 
@@ -99,6 +102,12 @@ public class NextFragment extends Fragment
 
     private void performNoTransition() {
         int state = StateMachine.getCurrentState().getNoAnswered();
+        StateMachine.setCurrentState(state);
+        ((MainActivity)getActivity()).setupInstructionFragment();
+    }
+
+    private void performDoneTransition() {
+        int state = StateMachine.getCurrentState().getDoneAnswered();
         StateMachine.setCurrentState(state);
         ((MainActivity)getActivity()).setupInstructionFragment();
     }
