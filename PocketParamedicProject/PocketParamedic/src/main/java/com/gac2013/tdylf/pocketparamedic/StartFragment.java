@@ -40,6 +40,7 @@ public class StartFragment extends Fragment {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.remove(StartFragment.this);
                 ft.add(R.id.fragmentContainer, new NextFragment(), "instructions");
+                ft.addToBackStack(null);
                 //ft.remove();
                 ft.commit();
             }

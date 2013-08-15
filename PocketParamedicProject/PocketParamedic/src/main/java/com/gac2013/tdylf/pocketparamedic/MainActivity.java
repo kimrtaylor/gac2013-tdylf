@@ -19,6 +19,7 @@ public class MainActivity extends Activity {
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.add(R.id.fragmentContainer, new StartFragment(), "instructions");
+        ft.addToBackStack(null);
         ft.commit();
 
 
