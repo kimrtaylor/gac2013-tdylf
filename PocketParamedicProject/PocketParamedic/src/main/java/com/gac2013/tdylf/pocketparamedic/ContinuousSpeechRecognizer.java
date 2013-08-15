@@ -99,7 +99,7 @@ public class ContinuousSpeechRecognizer {
                     //}
                 }
             };
-            handler.postDelayed(runnable, 7500);
+            handler.postDelayed(runnable, 5000);
 
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
