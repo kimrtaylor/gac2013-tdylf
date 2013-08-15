@@ -38,6 +38,7 @@ public class StartFragment extends Fragment {
                                     int position, long id) {
 
                 Toast.makeText(getActivity().getApplicationContext(), "onItemClick", Toast.LENGTH_LONG).show();
+
                 ((MainActivity)getActivity()).setupInstructionFragment();
 
             }
