@@ -35,10 +35,6 @@ public class NextFragment extends Fragment
         for (int i = 0; i < fm.getBackStackEntryCount(); i++)
             Log.e(getClass().getName(), i + " -> " + fm.getBackStackEntryAt(i).getName());
 
-        //if (fm.getBackStackEntryCount() > 1 &&
-          //      fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 2).getName().equals("instructions"))
-            //fm.popBackStack();
-
         State currentState = StateMachine.getCurrentState();
         ViewGroup vg = (ViewGroup)inflater.inflate(R.layout.instructions, container, false);
         ((TextView)vg.findViewById(R.id.tvInstr)).setText("" + currentState.getId());
@@ -47,13 +43,6 @@ public class NextFragment extends Fragment
         context = getActivity().getApplicationContext();
 
         tts = new TextToSpeech(context, this);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                tts.speak(StateMachine.getCurrentState().getQuestion(), TextToSpeech.QUEUE_ADD, null);
-            }
-        }, 2000);
 
         return vg;
     }
@@ -123,10 +112,11 @@ public class NextFragment extends Fragment
                     || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("TTS", "This Language is not supported");
             }
-
+            tts.speak(StateMachine.getCurrentState().getQuestion(), TextToSpeech.QUEUE_ADD, null);
         } else {
             Log.e("TTS", "Initialization Failed!");
         }
+
 
     }
 }
