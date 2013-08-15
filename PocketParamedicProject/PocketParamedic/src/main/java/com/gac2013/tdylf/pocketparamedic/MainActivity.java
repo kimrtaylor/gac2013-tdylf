@@ -6,23 +6,38 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.start);
 
-        ListView listview = (ListView) findViewById(R.id.listView);
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ListView listView = (ListView) findViewById(R.id.listView);
+
+        final String[] VALUES = new String[] {
+                "Snake bite",
+                "Car crash",
+                "Heart attack"
+        };
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, VALUES);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
+
+                Toast.makeText(getApplicationContext(), "onItemClick", Toast.LENGTH_LONG).show();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(android.R.id.content, new NextFragment(), "instructions");
+                ft.replace(R.id.fragmentContainer, new NextFragment(), "instructions");
                 ft.commit();
             }
         });
