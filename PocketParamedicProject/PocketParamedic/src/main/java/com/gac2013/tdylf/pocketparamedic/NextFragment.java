@@ -49,7 +49,7 @@ public class NextFragment extends Fragment
             layoutId = R.layout.done;
 
         rootView = (ViewGroup) inflater.inflate(layoutId, container, false);
-        ((TextView) rootView.findViewById(R.id.tvInstr)).setText("" + currentState.getId());
+        ((TextView) rootView.findViewById(R.id.tvInstr)).setText(currentState.getQuestion());
         ((ImageView) rootView.findViewById(R.id.ivInstr)).setImageResource(currentState.getImageResId());
 
         setupButtonClickListeners(layoutId);
