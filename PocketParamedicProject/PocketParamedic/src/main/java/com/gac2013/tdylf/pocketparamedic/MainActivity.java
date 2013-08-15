@@ -17,30 +17,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start);
 
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.add(R.id.fragmentContainer, new StartFragment(), "instructions");
+        ft.commit();
 
-        ListView listView = (ListView) findViewById(R.id.listView);
-
-        final String[] VALUES = new String[] {
-                "Snake bite",
-                "Car crash",
-                "Heart attack"
-        };
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, VALUES);
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-
-                Toast.makeText(getApplicationContext(), "onItemClick", Toast.LENGTH_LONG).show();
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.fragmentContainer, new NextFragment(), "instructions");
-                ft.commit();
-            }
-        });
 
     }
 
