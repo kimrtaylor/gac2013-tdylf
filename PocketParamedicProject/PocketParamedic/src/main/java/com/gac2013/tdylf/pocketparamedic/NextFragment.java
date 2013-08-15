@@ -112,6 +112,12 @@ public class NextFragment extends Fragment
 
     @Override
     public void onResults(ArrayList<String> results) {
+
+        String c = "";
+        for (String s: results)
+            c += s;
+        Toast.makeText(context, c, Toast.LENGTH_SHORT).show();
+
         if (results.contains("yes")) {
             Toast.makeText(context, "yes", Toast.LENGTH_SHORT).show();
             performYesTransition();

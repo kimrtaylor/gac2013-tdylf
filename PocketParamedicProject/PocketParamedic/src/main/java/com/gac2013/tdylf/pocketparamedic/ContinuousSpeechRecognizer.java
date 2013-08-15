@@ -99,7 +99,7 @@ public class ContinuousSpeechRecognizer {
                     //}
                 }
             };
-            handler.postDelayed(runnable, 10000);
+            handler.postDelayed(runnable, 7500);
 
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -147,27 +147,8 @@ public class ContinuousSpeechRecognizer {
                 sr.startListening(intent);
 
             } else if (errorCode == SpeechRecognizer.ERROR_RECOGNIZER_BUSY) {
-
-                /*
-                Log.e(TAG, "stopping listening");
-                sr.stopListening();
-                Log.e(TAG, "cancelling listening");
-                sr.cancel();
-                Log.e(TAG, "destroying sr");
-                sr.destroy();
-                Log.e(TAG, "running listen");*/
                 stopRecognition();
-                /*
-                Log.d(TAG, "Posting delayed restart due to recognizer-busy error");
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d(TAG, "Executing delayed restart");
-                        stopRecognition();
-                   }
-                }, 2000);*/
-                //Log.d(TAG, "done");
-                //sr.startListening(intent);
+
             } else
                 Log.d(TAG,
                         "FAILED " + errorCode);
