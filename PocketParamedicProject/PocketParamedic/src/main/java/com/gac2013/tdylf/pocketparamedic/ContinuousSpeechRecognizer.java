@@ -23,6 +23,9 @@ public class ContinuousSpeechRecognizer {
     private static final String TAG = "ContinuousSpeechRecognizer";
     private Intent intent;
 
+    private Runnable runnable;
+    private Handler handler = new Handler();
+
     private AudioManager audioManager;
     private RecognizedTextListener output;
 
@@ -37,6 +40,11 @@ public class ContinuousSpeechRecognizer {
         Log.d(TAG, "Listening stopped");
         sr.cancel();
         Log.d(TAG, "Speech recognizer cancelled");
+
+        if (runnable != null) {
+            handler.removeCallbacks(runnable);
+            runnable = null;
+        }
     }
 
     public void setListener(RecognizedTextListener output) {
@@ -75,24 +83,11 @@ public class ContinuousSpeechRecognizer {
 
     private class ContinuousRecognitionListener implements RecognitionListener {
         private boolean speechBegun;
-        private Runnable runnable;
-        private Handler handler = new Handler();
+
 
         public void onReadyForSpeech(Bundle params) {
             Log.d(TAG, "onReadyForSpeech");
-            //tts.speak("foobar", TextToSpeech.QUEUE_ADD, null);
 
-        /*private void playNotificationSound(int soundId) {
-
-            AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-            float maxVolume = (float) audioManager
-                    .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-            // Is the sound loaded already?
-            if (loaded)
-                soundPool.play(soundId, maxVolume, maxVolume, 1, 0, 1f);
-        }*/
-
-            //speechBegun = false;
             runnable = new Runnable() {
                 @Override
                 public void run() {
@@ -125,7 +120,6 @@ public class ContinuousSpeechRecognizer {
                 handler.removeCallbacks(runnable);
                 runnable = null;
             }
-            //speechBegun = true;
         }
 
         public void onRmsChanged(float rmsdB) {
@@ -138,7 +132,6 @@ public class ContinuousSpeechRecognizer {
 
         public void onEndOfSpeech() {
             Log.d(TAG, "onEndOfSpeech");
-            //restartRecognition();
         }
 
         @Override
@@ -147,36 +140,35 @@ public class ContinuousSpeechRecognizer {
 
             if ((errorCode == SpeechRecognizer.ERROR_NO_MATCH)
                     || (errorCode == SpeechRecognizer.ERROR_SPEECH_TIMEOUT)) {
-                Log.e(TAG, "didn't recognize anything");
-                // keep going
-                //recognizeSpeechDirectly();
+                Log.e(TAG, "Didn't recognize anything");
+
                 sr.startListening(intent);
 
             } else if (errorCode == SpeechRecognizer.ERROR_RECOGNIZER_BUSY) {
+
+                /*
                 Log.e(TAG, "stopping listening");
                 sr.stopListening();
                 Log.e(TAG, "cancelling listening");
                 sr.cancel();
                 Log.e(TAG, "destroying sr");
                 sr.destroy();
-                Log.e(TAG, "running listen");
-                /*new Handler().postDelayed(new Runnable() {
+                Log.e(TAG, "running listen");*/
+                stopRecognition();
+                /*
+                Log.d(TAG, "Posting delayed restart due to recognizer-busy error");
+                handler.postDelayed(new Runnable() {
                     @Override
-                    public void run() {*/
-                sr.startListening(intent);
-                   /* }
+                    public void run() {
+                        Log.d(TAG, "Executing delayed restart");
+                        stopRecognition();
+                   }
                 }, 2000);*/
-                Log.e(TAG, "done");
+                //Log.d(TAG, "done");
                 //sr.startListening(intent);
-            } else {
+            } else
                 Log.d(TAG,
                         "FAILED " + errorCode);
-                //+ SpeechRecognitionUtil
-                //.diagnoseErrorCode(errorCode));
-
-
-                //mText.setText("An error occured: " + message);
-            }
 
             Log.e(TAG, "error " + errorCode + ": " + message);
 
@@ -187,11 +179,6 @@ public class ContinuousSpeechRecognizer {
             if (output != null)
                 output.onResults(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
 
-            //sr.stopListening();
-            //sr.cancel();
-            //sr.destroy();
-            //onClick(speakButton);
-            //mText.setText("results: "+String.valueOf(data.size()));
             sr.startListening(intent);
         }
 

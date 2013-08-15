@@ -3,6 +3,7 @@ package com.gac2013.tdylf.pocketparamedic;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,13 @@ public class NextFragment extends Fragment implements ContinuousSpeechRecognizer
         context = getActivity().getApplicationContext();
         csr = new ContinuousSpeechRecognizer(context);
         csr.setListener(this);
-        csr.startRecognition();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                csr.startRecognition();
+            }
+        }, 2000);
+
     }
 
     @Override
