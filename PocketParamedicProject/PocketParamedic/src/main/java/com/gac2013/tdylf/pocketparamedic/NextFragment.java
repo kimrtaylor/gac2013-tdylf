@@ -9,12 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.security.PermissionCollection;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class NextFragment extends Fragment implements ContinuousSpeechRecognizer.RecognizedTextListener {
 
@@ -36,8 +35,10 @@ public class NextFragment extends Fragment implements ContinuousSpeechRecognizer
           //      fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 2).getName().equals("instructions"))
             //fm.popBackStack();
 
+        State currentState = StateMachine.getCurrentState();
         ViewGroup vg = (ViewGroup)inflater.inflate(R.layout.instructions, container, false);
-        ((TextView)vg.findViewById(R.id.tvInstr)).setText(""+StateMachine.getCurrentState().getId());
+        ((TextView)vg.findViewById(R.id.tvInstr)).setText("" + currentState.getId());
+        ((ImageView)vg.findViewById(R.id.ivInstr)).setImageResource(currentState.getImageResId());
         return vg;
     }
 
