@@ -107,7 +107,8 @@ public class NextFragment extends Fragment
     @Override
     public void onStop() {
         super.onStop();
-        csr.stopRecognition();
+        if (csr != null)
+            csr.stopRecognition();
     }
 
     @Override
