@@ -33,12 +33,6 @@ public class NextFragment extends Fragment
     private TextToSpeech tts;
     private ViewGroup rootView;
 
-    /*
-    private boolean loaded;
-    private SoundPool soundPool;
-    private int soundId;
-*/
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,31 +55,8 @@ public class NextFragment extends Fragment
 
         tts = new TextToSpeech(context, this);
 
-        /*
-        loaded = false;
-        soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-            @Override
-            public void onLoadComplete(SoundPool soundPool, int sampleId,
-                                       int status) {
-                loaded = true;
-            }
-        });
-        new LoadMusicAsyncTask().execute();
-*/
         return rootView;
     }
-
-    /*
-    private class LoadMusicAsyncTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            soundId = soundPool.load(
-                    getActivity().getApplicationContext(), R.raw.stayinalive, 1);
-            return null;
-        }
-    }*/
 
     private void setupButtonClickListeners(int layoutId) {
         if (layoutId == R.layout.done) {
@@ -254,14 +225,6 @@ public class NextFragment extends Fragment
     }
 
     private void playSound() {
-
-        /*
-        AudioManager audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
-        float maxVolume = (float) audioManager
-                .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        // Is the sound loaded already?
-        if (loaded)
-            soundPool.play(soundId, maxVolume, maxVolume, 1, 0, 1f);*/
 
         MediaPlayer mp = MediaPlayer.create(getActivity().getApplicationContext(),
                 Uri.parse("android.resource://com.gac2013.tdylf.pocketparamedic/raw/stayalive"));
