@@ -29,6 +29,22 @@ public class StateMachine {
         return null;
     }
 
+    public boolean isCurrentStateDo(){
+        return isStateDo(currentState);
+    }
+
+    public boolean isCurrentStateAsk(){
+        return isStateAsk(currentState);
+    }
+
+    public boolean isStateDo(int id){
+        return getStateById(id).getDoneAnswered() != null;
+    }
+
+    public boolean isStateAsk(int id){
+        return !isStateDo(id);
+    }
+
     public static void setCurrentState(int state){
         currentState = state;
     }
