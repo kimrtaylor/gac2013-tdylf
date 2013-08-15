@@ -35,15 +35,17 @@ public class ContinuousSpeechRecognizer {
     }
 
     public void stopRecognition() {
-        Log.e(TAG, "Stopping recognition");
-        sr.stopListening();
-        Log.d(TAG, "Listening stopped");
-        sr.cancel();
-        Log.d(TAG, "Speech recognizer cancelled");
+        if (sr != null) {
+            Log.e(TAG, "Stopping recognition");
+            sr.stopListening();
+            Log.d(TAG, "Listening stopped");
+            sr.cancel();
+            Log.d(TAG, "Speech recognizer cancelled");
 
-        if (runnable != null) {
-            handler.removeCallbacks(runnable);
-            runnable = null;
+            if (runnable != null) {
+                handler.removeCallbacks(runnable);
+                runnable = null;
+            }
         }
     }
 
