@@ -3,19 +3,38 @@ package com.gac2013.tdylf.pocketparamedic;
 public class StateMachine {
 
     public static final int NONE = -1;
-    public static final int ASK_SCENE_SAFE = 0;
-    public static final int DO_GLOVES = 1;
-    public static final int DO_SAVE_SCENE = 2;
-    public static final int ASK_CONSCIOUS = 3;
-    public static final int ASK_18 = 4;
+    public static final int ASK_SAFE = 0;
+    public static final int ASK_CONSCIOUS = 1;
+    public static final int DO_CONSCIOUS = 2;
+    public static final int ASK_CONSCIOUS_TWO = 3;
+    public static final int DO_CALL = 4;
+    public static final int ASK_BREATHING = 5;
+    public static final int DO_CPR = 6;
+    public static final int ASK_BREATHING_TWO = 7;
+    public static final int DO_PULSE = 8;
+    public static final int ASK_PULSE = 9;
+    public static final int LOG_PULSE = 10;
+    public static final int ASK_SPINE = 11;
+    public static final int DO_RECOVERY = 12;
+    public static final int DO_MONITOR = 13;
 
-    public static State[] states = new State[]{ new State(ASK_SCENE_SAFE, "Is the scene safe? ", DO_GLOVES, DO_SAVE_SCENE, NONE, 0),
-                                         new State(DO_GLOVES, "Put on non-latex sterile gloves. ", NONE, NONE, ASK_CONSCIOUS, 0),
-                                         new State(DO_SAVE_SCENE, "Safe the scene. ", NONE, NONE, ASK_SCENE_SAFE, 0),
-                                         new State(ASK_CONSCIOUS, "Is the victim conscious? ", ASK_18, ASK_SCENE_SAFE, NONE, 0),
-                                         new State(ASK_18, "Is the victim over 18? ", NONE, NONE, ASK_SCENE_SAFE, 0)};
+    public static State[] states = new State[]{
+            new State(ASK_SAFE, "Is the scene safe? ", ASK_CONSCIOUS, NONE, NONE, 0),
+            new State(ASK_CONSCIOUS, "Is the victim conscious?", NONE, DO_CONSCIOUS, NONE, 0),
+            new State(DO_CONSCIOUS, "Shake victim and shout to them.", NONE, NONE, ASK_CONSCIOUS_TWO, 0),
+            new State(ASK_CONSCIOUS_TWO, "Is the victim conscious now?", NONE, DO_CALL, NONE, 0),
+            new State(DO_CALL, "Call 999!", NONE, NONE, ASK_BREATHING, 0),
+            new State(ASK_BREATHING, "Is the victim breathing?", NONE, DO_CPR, NONE, 0),
+            new State(DO_CPR, "Start CPR in time with me. Starting in 3... 2... 1", NONE, NONE, NONE, 0), //play audio file automatically go on
+            new State(ASK_BREATHING_TWO, "Stop! Is the victim breathing now?", DO_PULSE, NONE, NONE, 0),
+            new State(DO_PULSE, "Take pulse. Get ready to count in 3... 2... 1. Start!", NONE, NONE, NONE, 0), // hardcode 10 seconds delay - "done" automatically
+            new State(ASK_PULSE, "Stop! Could you detect a pulse?", LOG_PULSE, NONE, NONE, 0),
+            new State(LOG_PULSE, "Tell me the number of pulses that you counted.", NONE, NONE, NONE, 0), //slider or voice input
+            new State(ASK_SPINE, "Do you suspect a spine or head injury?", NONE, DO_RECOVERY, NONE, 0),
+            new State(DO_RECOVERY, "Put victim into recovery position.", NONE, NONE, DO_MONITOR, 0),
+            new State(DO_MONITOR, "Monitor breathing and pulse until help arrives.", NONE, NONE, NONE, 0)};
 
-    private static int currentState = ASK_SCENE_SAFE;
+    private static int currentState = ASK_SAFE;
 
     public static State getCurrentState(){
         return getStateById(currentState);
