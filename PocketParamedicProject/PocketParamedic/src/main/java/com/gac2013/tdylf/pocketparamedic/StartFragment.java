@@ -2,8 +2,10 @@ package com.gac2013.tdylf.pocketparamedic;
 
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +23,7 @@ public class StartFragment extends Fragment {
 
         ListView listView = (ListView) vg.findViewById(R.id.listView);
 
-        final String[] VALUES = new String[] {
+        final String[] VALUES = new String[]{
                 "Snake bite",
                 "Car crash",
                 "Heart attack"
@@ -35,14 +37,10 @@ public class StartFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-
                 Toast.makeText(getActivity().getApplicationContext(), "onItemClick", Toast.LENGTH_LONG).show();
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.remove(StartFragment.this);
-                ft.add(R.id.fragmentContainer, new NextFragment(), "instructions");
-                ft.addToBackStack(null);
-                //ft.remove();
-                ft.commit();
+
+                ((MainActivity)getActivity()).setupInstructionFragment();
+
             }
         });
 
