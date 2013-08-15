@@ -4,7 +4,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
->
+        >
 
     <ImageView
             android:layout_width="fill_parent"
@@ -24,32 +24,42 @@
 
 
             />
-<LinearLayout
 
-    android:orientation="horizontal"
-    android:layout_height="0px"
-    android:layout_width="match_parent"
-    android:layout_weight="1">
+    <LinearLayout
 
-    <Button
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:text="New Button"
-            android:id="@+id/bYesInstr"
-            android:layout_below="@id/tvInstr"
-            android:layout_alignParentLeft="true"
-            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_height="0px"
+            android:layout_width="match_parent"
+            android:layout_weight="1">
 
-           />
+        <Button
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:id="@+id/bYesInstr"
+                android:text="YES"
+                android:textColor="@android:color/white"
+                android:textSize="66sp"
+                android:background="@string/our_green"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginBottom="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_weight="1"
 
-    <Button
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:text="New Button"
-            android:id="@+id/bNoInstr"
-            android:layout_below="@id/tvInstr"
-            android:layout_alignParentRight="true"
-            android:layout_weight="1"/>
+                />
+
+        <Button
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:text="NO"
+                android:textSize="66sp"
+                android:textColor="@android:color/white"
+                android:id="@+id/bNoInstr"
+                android:layout_weight="1"
+                android:background="@android:color/holo_red_dark"
+                android:layout_marginStart="30dp"
+                android:layout_marginBottom="30dp"/>
     </LinearLayout>
 
 </LinearLayout>
