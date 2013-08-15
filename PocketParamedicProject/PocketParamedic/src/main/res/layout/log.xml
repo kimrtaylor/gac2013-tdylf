@@ -7,39 +7,25 @@
         >
 
     <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="245dp"
+            android:layout_width="225sp"
+            android:layout_height="225sp"
             android:id="@+id/ivInstr"
-            android:background="@drawable/firstaid1"
-            android:layout_weight="1"/>
-
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/tvInstr"
+            android:background="@drawable/logo"
             android:layout_gravity="center"
-            android:layout_below="@id/ivInstr"
-            android:textSize="34dp"
-
-
+            android:layout_marginBottom="25sp"
+            android:layout_marginTop="25sp"
             />
 
-    <LinearLayout
 
-            android:orientation="horizontal"
-            android:layout_height="0px"
-            android:layout_width="match_parent"
-            android:layout_weight="1">
 
         <Button
-                android:layout_width="0px"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/bDoneInstr"
-                android:text="DONE"
+                android:text="Exit.Thank you for helping."
                 android:textColor="@android:color/white"
-                android:textSize="66sp"
-                android:background="@android:color/holo_green_dark"
+                android:textSize="35sp"
+                android:background="#177339"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="30dp"
@@ -49,7 +35,5 @@
 
                 />
 
-
-    </LinearLayout>
 
 </LinearLayout>
