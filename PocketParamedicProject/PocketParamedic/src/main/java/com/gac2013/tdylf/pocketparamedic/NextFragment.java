@@ -17,7 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 public class NextFragment extends Fragment
@@ -111,6 +113,26 @@ public class NextFragment extends Fragment
             csr.stopRecognition();
     }
 
+    private static final String[] yesIndications = new String[] {
+            "yes", "yep", "yeah", "sure", "of course", "course"
+    };
+
+    private static final String[] noIndications = new String[] {
+            "no", "nope", "not", "not really", "not at all", "nothing really", "nothing at all"
+    };
+
+    private static final String[] doneIndications = new String[] {
+            "done", "dumb", "dan", "dawn", "okay", "ok", "next", "go on"
+    };
+
+    private boolean indicates(List<String> results, String[] patterns) {
+        for (String p: patterns)
+            if (results.contains(p))
+                return true;
+        return false;
+    }
+
+
     @Override
     public void onResults(ArrayList<String> results) {
 
@@ -120,16 +142,16 @@ public class NextFragment extends Fragment
         Toast.makeText(context, c, Toast.LENGTH_SHORT).show();
 
         if (StateMachine.isCurrentStateAsk()) {
-            if (results.contains("yes")) {
+            if (indicates(results, yesIndications)) {
                 Toast.makeText(context, "yes", Toast.LENGTH_SHORT).show();
                 performYesTransition();
 
-            } else if (results.contains("no")) {
+            } else if (indicates(results, noIndications)) {
                 Toast.makeText(context, "no", Toast.LENGTH_SHORT).show();
                 performNoTransition();
             }
         } else if (StateMachine.isCurrentStateDo()) {
-            if (results.contains("done")) {
+            if (indicates(results, doneIndications)) {
                 Toast.makeText(context, "done", Toast.LENGTH_SHORT).show();
                 performDoneTransition();
             }
