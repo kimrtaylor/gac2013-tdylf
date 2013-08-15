@@ -45,7 +45,7 @@ public class StateMachine {
             if(states[i] != null && states[i].getId() == state_id)
                 return states[i];
         }
-        return null;
+        return getStateById(ASK_SAFE);
     }
 
     public static boolean isCurrentStateDo(){

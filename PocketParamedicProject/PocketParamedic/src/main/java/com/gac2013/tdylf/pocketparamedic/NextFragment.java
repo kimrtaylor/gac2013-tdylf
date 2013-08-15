@@ -114,20 +114,24 @@ public class NextFragment extends Fragment
     public void onResults(ArrayList<String> results) {
 
         String c = "";
-        for (String s: results)
-            c += s;
+        for (String s : results)
+            c += s + ", ";
         Toast.makeText(context, c, Toast.LENGTH_SHORT).show();
 
-        if (results.contains("yes")) {
-            Toast.makeText(context, "yes", Toast.LENGTH_SHORT).show();
-            performYesTransition();
+        if (StateMachine.isCurrentStateAsk()) {
+            if (results.contains("yes")) {
+                Toast.makeText(context, "yes", Toast.LENGTH_SHORT).show();
+                performYesTransition();
 
-        } else if (results.contains("no")) {
-            Toast.makeText(context, "no", Toast.LENGTH_SHORT).show();
-            performNoTransition();
-        } else if (results.contains("done")) {
-            Toast.makeText(context, "done", Toast.LENGTH_SHORT).show();
-            performDoneTransition();
+            } else if (results.contains("no")) {
+                Toast.makeText(context, "no", Toast.LENGTH_SHORT).show();
+                performNoTransition();
+            }
+        } else if (StateMachine.isCurrentStateDo()) {
+            if (results.contains("done")) {
+                Toast.makeText(context, "done", Toast.LENGTH_SHORT).show();
+                performDoneTransition();
+            }
         }
     }
 
