@@ -1,48 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="fill_parent"
+              android:layout_weight="1"
         >
 
     <ImageView
-            android:layout_width="250dp"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/ivInstr"
             android:background="@drawable/firstaid1"
-            android:layout_alignParentLeft="true"
-            />
+            android:layout_weight="1"/>
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/tvInstr"
-            android:layout_gravity="right"
-            android:layout_alignParentEnd="true"
-            android:textSize="34dp"
+    <LinearLayout
+
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1">
 
 
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/ivInstr"
-            android:layout_marginLeft="36dp"/>
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/tvInstr"
+                android:layout_gravity="center"
+                android:layout_below="@id/ivInstr"
+                android:textSize="34dp"/>
 
-    <Button
-            android:layout_width="190dp"
-            android:layout_height="120dp"
-            android:id="@+id/bYesInstr"
-            android:text="YesButton"
-            android:layout_alignTop="@+id/bNoInstr"
-            android:layout_toLeftOf="@+id/bNoInstr"/>
+        <LinearLayout
 
-    <Button
-            android:layout_width="190dp"
-            android:layout_height="120dp"
-            android:text="NoButton"
-            android:id="@+id/bNoInstr"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"/>
+                android:orientation="horizontal"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
 
+                >
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="YES"
+                android:textColor="@android:color/white"
+                android:textSize="46dp"
+                android:id="@+id/bYesInstr"
+                android:layout_weight="1"
+                android:background="@android:color/holo_green_dark"
+                />
 
-</RelativeLayout>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NO"
+                android:textSize="46dp"
+                android:textColor="@android:color/white"
+                android:id="@+id/bNoInstr"
+                android:layout_weight="1"
+                android:background="@android:color/holo_red_dark"
+               />
+    </LinearLayout>
+
+</LinearLayout>
+
+</LinearLayout>
