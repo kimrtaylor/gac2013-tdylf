@@ -3,7 +3,9 @@ package com.gac2013.tdylf.pocketparamedic;
 import android.app.Fragment;
 import android.content.Context;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -31,10 +33,11 @@ public class NextFragment extends Fragment
     private TextToSpeech tts;
     private ViewGroup rootView;
 
+    /*
     private boolean loaded;
     private SoundPool soundPool;
     private int soundId;
-
+*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +61,7 @@ public class NextFragment extends Fragment
 
         tts = new TextToSpeech(context, this);
 
+        /*
         loaded = false;
         soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
         soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
@@ -68,10 +72,11 @@ public class NextFragment extends Fragment
             }
         });
         new LoadMusicAsyncTask().execute();
-
+*/
         return rootView;
     }
 
+    /*
     private class LoadMusicAsyncTask extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -80,7 +85,7 @@ public class NextFragment extends Fragment
                     getActivity().getApplicationContext(), R.raw.stayinalive, 1);
             return null;
         }
-    }
+    }*/
 
     private void setupButtonClickListeners(int layoutId) {
         if (layoutId == R.layout.done) {
@@ -227,7 +232,7 @@ public class NextFragment extends Fragment
             Log.e(getClass().getName(), "Utterance " + utteranceId + " completed");
 
             if (StateMachine.getCurrentState().getId() == StateMachine.DO_CPR) {
-                playSound(soundId);
+                playSound();
             } else
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -242,13 +247,29 @@ public class NextFragment extends Fragment
         }
     }
 
-    private void playSound(int soundId) {
+    private void playSound() {
 
+        /*
         AudioManager audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         float maxVolume = (float) audioManager
                 .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         // Is the sound loaded already?
         if (loaded)
-            soundPool.play(soundId, maxVolume, maxVolume, 1, 0, 1f);
+            soundPool.play(soundId, maxVolume, maxVolume, 1, 0, 1f);*/
+
+        MediaPlayer mp = MediaPlayer.create(getActivity().getApplicationContext(),
+                Uri.parse("android.resource://com.gac2013.tdylf.pocketparamedic/raw/stayinalive"));
+
+
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+
+            }
+
+        });
+
+        mp.start();
     }
 }
