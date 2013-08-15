@@ -1,6 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
+    <item
+            android:id="@+id/action_settings"
+            android:title="@string/action_settings"
+            android:orderInCategory="100"
+            android:showAsAction="ifRoom"
+            android:icon="@drawable/ic_action_overflow"/>
+
+    <item
+            android:id="@+id/action_log"
+            android:icon="@drawable/ic_action_paste"
+            android:title="Log"
+            android:showAsAction="ifRoom"/>
+
 </menu>
