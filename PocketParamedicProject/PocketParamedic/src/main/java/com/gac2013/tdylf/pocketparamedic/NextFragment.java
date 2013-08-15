@@ -4,7 +4,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.media.AudioManager;
+import android.media.SoundPool;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
@@ -29,6 +32,10 @@ public class NextFragment extends Fragment
     private Context context;
     private TextToSpeech tts;
     private ViewGroup rootView;
+
+    private boolean loaded;
+    private SoundPool soundPool;
+    private int soundId;
 
 
     @Override
@@ -59,7 +66,28 @@ public class NextFragment extends Fragment
 
         tts = new TextToSpeech(context, this);
 
+        loaded = false;
+        soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId,
+                                       int status) {
+                loaded = true;
+            }
+        });
+        new LoadMusicAsyncTask().execute();
+
         return rootView;
+    }
+
+    private class LoadMusicAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            soundId = soundPool.load(
+                    getActivity().getApplicationContext(), R.raw.stayinalive, 1);
+            return null;
+        }
     }
 
     private void setupButtonClickListeners(int layoutId) {
@@ -112,20 +140,20 @@ public class NextFragment extends Fragment
             csr.stopRecognition();
     }
 
-    private static final String[] yesIndications = new String[] {
+    private static final String[] yesIndications = new String[]{
             "yes", "yep", "yeah", "sure", "of course", "course"
     };
 
-    private static final String[] noIndications = new String[] {
+    private static final String[] noIndications = new String[]{
             "no", "nope", "not", "not really", "not at all", "nothing really", "nothing at all"
     };
 
-    private static final String[] doneIndications = new String[] {
+    private static final String[] doneIndications = new String[]{
             "done", "dumb", "dan", "dawn", "okay", "ok", "next", "go on"
     };
 
     private boolean indicates(List<String> results, String[] patterns) {
-        for (String p: patterns)
+        for (String p : patterns)
             if (results.contains(p))
                 return true;
         return false;
@@ -209,15 +237,16 @@ public class NextFragment extends Fragment
         @Override
         public void onDone(String utteranceId) {
             Log.e(getClass().getName(), "Utterance " + utteranceId + " completed");
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (StateMachine.getCurrentState().getId() == StateMachine.DO_CPR)
-                        playStayinAlive();
-                    else
+
+            if (StateMachine.getCurrentState().getId() == StateMachine.DO_CPR) {
+                playSound(soundId);
+            } else
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
                         csr.startRecognition();
-                }
-            });
+                    }
+                });
         }
 
         @Override
@@ -225,7 +254,13 @@ public class NextFragment extends Fragment
         }
     }
 
-    private void playStayinAlive() {
+    private void playSound(int soundId) {
 
+        AudioManager audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+        float maxVolume = (float) audioManager
+                .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        // Is the sound loaded already?
+        if (loaded)
+            soundPool.play(soundId, maxVolume, maxVolume, 1, 0, 1f);
     }
 }
