@@ -39,7 +39,14 @@ public class NextFragment extends Fragment
             Log.e(getClass().getName(), i + " -> " + fm.getBackStackEntryAt(i).getName());
 
         State currentState = StateMachine.getCurrentState();
-        ViewGroup vg = (ViewGroup) inflater.inflate(R.layout.instructions, container, false);
+
+        int layoutId;
+        if (StateMachine.isCurrentStateAsk())
+            layoutId = R.layout.instructions;
+        else
+            layoutId = R.layout.done;
+
+        ViewGroup vg = (ViewGroup) inflater.inflate(layoutId, container, false);
         ((TextView) vg.findViewById(R.id.tvInstr)).setText("" + currentState.getId());
         ((ImageView) vg.findViewById(R.id.ivInstr)).setImageResource(currentState.getImageResId());
 
