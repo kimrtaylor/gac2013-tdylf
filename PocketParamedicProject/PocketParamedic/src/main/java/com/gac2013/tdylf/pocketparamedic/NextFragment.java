@@ -258,7 +258,7 @@ public class NextFragment extends Fragment
             soundPool.play(soundId, maxVolume, maxVolume, 1, 0, 1f);*/
 
         MediaPlayer mp = MediaPlayer.create(getActivity().getApplicationContext(),
-                Uri.parse("android.resource://com.gac2013.tdylf.pocketparamedic/raw/stayinalive"));
+                Uri.parse("android.resource://com.gac2013.tdylf.pocketparamedic/raw/stayalive"));
 
 
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
