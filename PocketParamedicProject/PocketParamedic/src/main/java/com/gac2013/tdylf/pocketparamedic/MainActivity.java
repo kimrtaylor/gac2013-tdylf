@@ -4,10 +4,14 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Activity;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.Menu;
 
 public class MainActivity extends Activity {
+
+    private PowerManager mPowerManager;
+    private PowerManager.WakeLock mWakeLock;
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -17,17 +21,21 @@ public class MainActivity extends Activity {
         if (bundle == null)
             setupStartScreen();
 
-            /*
-        if (bundle != null) {
-            int state = bundle.getInt("STATE");
-            StateMachine.setCurrentState(state);
-            if (state == 0) {
-                setupStartScreen();
-            } else {
-                setupInstructionScreen();
-            }
-        } else
-            setupStartScreen();*/
+        mPowerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        mWakeLock = mPowerManager.newWakeLock(
+                PowerManager.SCREEN_BRIGHT_WAKE_LOCK, getClass().getName());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mWakeLock.acquire();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mWakeLock.release();
     }
 
     private void setupStartScreen() {
@@ -68,9 +76,9 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    /*
+    // A temporary solution!
     @Override
     public void onBackPressed() {
-    }*/
+    }
 
 }

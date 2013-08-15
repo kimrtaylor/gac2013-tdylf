@@ -33,12 +33,6 @@ public class NextFragment extends Fragment
     private TextToSpeech tts;
     private ViewGroup rootView;
 
-    /*
-    private boolean loaded;
-    private SoundPool soundPool;
-    private int soundId;
-*/
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,31 +55,8 @@ public class NextFragment extends Fragment
 
         tts = new TextToSpeech(context, this);
 
-        /*
-        loaded = false;
-        soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-            @Override
-            public void onLoadComplete(SoundPool soundPool, int sampleId,
-                                       int status) {
-                loaded = true;
-            }
-        });
-        new LoadMusicAsyncTask().execute();
-*/
         return rootView;
     }
-
-    /*
-    private class LoadMusicAsyncTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            soundId = soundPool.load(
-                    getActivity().getApplicationContext(), R.raw.stayinalive, 1);
-            return null;
-        }
-    }*/
 
     private void setupButtonClickListeners(int layoutId) {
         if (layoutId == R.layout.done) {
@@ -222,6 +193,8 @@ public class NextFragment extends Fragment
 
     }
 
+
+
     private class InternalUtteranceProgressListener extends UtteranceProgressListener {
         @Override
         public void onStart(String utteranceId) {
@@ -234,12 +207,7 @@ public class NextFragment extends Fragment
             if (StateMachine.getCurrentState().getId() == StateMachine.DO_CPR) {
                 playSound();
             } else
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        csr.startRecognition();
-                    }
-                });
+                startVrOnUiThread();
         }
 
         @Override
@@ -247,15 +215,16 @@ public class NextFragment extends Fragment
         }
     }
 
-    private void playSound() {
+    private void startVrOnUiThread() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                csr.startRecognition();
+            }
+        });
+    }
 
-        /*
-        AudioManager audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
-        float maxVolume = (float) audioManager
-                .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        // Is the sound loaded already?
-        if (loaded)
-            soundPool.play(soundId, maxVolume, maxVolume, 1, 0, 1f);*/
+    private void playSound() {
 
         MediaPlayer mp = MediaPlayer.create(getActivity().getApplicationContext(),
                 Uri.parse("android.resource://com.gac2013.tdylf.pocketparamedic/raw/stayalive"));
@@ -265,7 +234,7 @@ public class NextFragment extends Fragment
 
             @Override
             public void onCompletion(MediaPlayer mp) {
-
+                startVrOnUiThread();
             }
 
         });
