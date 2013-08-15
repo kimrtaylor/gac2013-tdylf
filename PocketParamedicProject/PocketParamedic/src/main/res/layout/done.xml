@@ -35,7 +35,7 @@
         <Button
                 android:layout_width="0px"
                 android:layout_height="match_parent"
-                android:id="@+id/bYesInstr"
+                android:id="@+id/bDoneInstr"
                 android:text="DONE"
                 android:textColor="@android:color/white"
                 android:textSize="66sp"

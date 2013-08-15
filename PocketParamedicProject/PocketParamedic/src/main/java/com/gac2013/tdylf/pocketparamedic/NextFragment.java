@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ public class NextFragment extends Fragment
     private ContinuousSpeechRecognizer csr;
     private Context context;
     private TextToSpeech tts;
+    private ViewGroup rootView;
 
 
     @Override
@@ -46,15 +48,29 @@ public class NextFragment extends Fragment
         else
             layoutId = R.layout.done;
 
-        ViewGroup vg = (ViewGroup) inflater.inflate(layoutId, container, false);
-        ((TextView) vg.findViewById(R.id.tvInstr)).setText("" + currentState.getId());
-        ((ImageView) vg.findViewById(R.id.ivInstr)).setImageResource(currentState.getImageResId());
+        rootView = (ViewGroup) inflater.inflate(layoutId, container, false);
+        ((TextView) rootView.findViewById(R.id.tvInstr)).setText("" + currentState.getId());
+        ((ImageView) rootView.findViewById(R.id.ivInstr)).setImageResource(currentState.getImageResId());
+
+        setupButtonClickListeners(layoutId);
 
         context = getActivity().getApplicationContext();
 
         tts = new TextToSpeech(context, this);
 
-        return vg;
+        return rootView;
+    }
+
+    private void setupButtonClickListeners(int layoutId) {
+        if (layoutId == R.layout.done) {
+            Button btDone = (Button) rootView.findViewById(R.id.bDoneInstr);
+            btDone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    performDoneTransition();
+                }
+            });
+        }
     }
 
     @Override
