@@ -1,9 +1,11 @@
 package com.gac2013.tdylf.pocketparamedic;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,16 @@ public class NextFragment extends Fragment implements ContinuousSpeechRecognizer
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+
+        FragmentManager fm = getFragmentManager();
+        for (int i = 0; i < fm.getBackStackEntryCount(); i++)
+            Log.e(getClass().getName(), i + " -> " + fm.getBackStackEntryAt(i).getName());
+
+        //if (fm.getBackStackEntryCount() > 1 &&
+          //      fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 2).getName().equals("instructions"))
+            //fm.popBackStack();
+
         ViewGroup vg = (ViewGroup)inflater.inflate(R.layout.instructions, container, false);
         return vg;
     }
@@ -30,21 +42,21 @@ public class NextFragment extends Fragment implements ContinuousSpeechRecognizer
     public void onResume() {
         super.onResume();
         context = getActivity().getApplicationContext();
-        csr = new ContinuousSpeechRecognizer(context);
+        /*csr = new ContinuousSpeechRecognizer(context);
         csr.setListener(this);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 csr.startRecognition();
             }
-        }, 2000);
+        }, 2000);*/
 
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        csr.stopRecognition();
+        //csr.stopRecognition();
     }
 
     @Override
