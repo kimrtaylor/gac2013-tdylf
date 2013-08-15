@@ -29,19 +29,19 @@ public class StateMachine {
         return null;
     }
 
-    public boolean isCurrentStateDo(){
+    public static boolean isCurrentStateDo(){
         return isStateDo(currentState);
     }
 
-    public boolean isCurrentStateAsk(){
+    public static boolean isCurrentStateAsk(){
         return isStateAsk(currentState);
     }
 
-    public boolean isStateDo(int id){
-        return getStateById(id).getDoneAnswered() != null;
+    public static boolean isStateDo(int id){
+        return getStateById(id).getDoneAnswered() != NONE;
     }
 
-    public boolean isStateAsk(int id){
+    public static boolean isStateAsk(int id){
         return !isStateDo(id);
     }
 

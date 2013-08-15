@@ -52,7 +52,7 @@
                     android:text="DONE"
                     android:textColor="@android:color/white"
                     android:textSize="66sp"
-                    android:id="@+id/bYesInstr"
+                    android:id="@+id/bDoneInstr"
                     android:layout_weight="1"
                     android:background="#177339"
                     android:layout_marginRight="10dp"
