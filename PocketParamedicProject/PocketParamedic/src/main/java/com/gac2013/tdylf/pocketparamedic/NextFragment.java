@@ -1,16 +1,51 @@
 package com.gac2013.tdylf.pocketparamedic;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-public class NextFragment extends Fragment {
+import java.security.PermissionCollection;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class NextFragment extends Fragment implements ContinuousSpeechRecognizer.RecognizedTextListener {
+
+    private ContinuousSpeechRecognizer csr;
+    private Context context;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.instructions, container, false);
+        ViewGroup vg = (ViewGroup)inflater.inflate(R.layout.instructions, container, false);
+        return vg;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        context = getActivity().getApplicationContext();
+        csr = new ContinuousSpeechRecognizer(context);
+        csr.setListener(this);
+        csr.startRecognition();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        csr.stopRecognition();
+    }
+
+    @Override
+    public void onResults(ArrayList<String> results) {
+        if (results.contains("yes")) {
+            Toast.makeText(context, "yes", Toast.LENGTH_SHORT).show();
+        } else if (results.contains("no")) {
+            Toast.makeText(context, "no", Toast.LENGTH_SHORT).show();
+        }
     }
 }
