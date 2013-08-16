@@ -23,7 +23,7 @@ public class StateMachine {
             new State(ASK_CONSCIOUS, "Is the victim conscious?", NONE, DO_CONSCIOUS, NONE, R.drawable.conscious),
             new State(DO_CONSCIOUS, "Shake victim and shout to them.", NONE, NONE, ASK_CONSCIOUS_TWO, R.drawable.conscious),
             new State(ASK_CONSCIOUS_TWO, "Is the victim conscious now?", NONE, DO_CALL, NONE, R.drawable.conscious),
-            new State(DO_CALL, "Call 9 9 9!", NONE, NONE, ASK_BREATHING, R.drawable.conscious),
+            new State(DO_CALL, "Call 9 9 9!", NONE, NONE, ASK_BREATHING, R.drawable.nine),
             new State(ASK_BREATHING, "Is the victim breathing?", NONE, DO_CPR, NONE, R.drawable.breathinggreen),
             new State(DO_CPR, "Start Chest compression in time with me, then say \"Done\". Starting in 3... 2... 1", NONE, NONE, ASK_SAFE, R.drawable.cpr), //play audio file automatically go on
             new State(ASK_BREATHING_TWO, "Stop! Is the victim breathing now?", DO_PULSE, NONE, NONE, R.drawable.breathinggreen),
