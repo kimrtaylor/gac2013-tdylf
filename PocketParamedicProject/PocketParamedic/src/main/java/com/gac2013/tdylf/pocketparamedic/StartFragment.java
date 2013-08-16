@@ -21,9 +21,14 @@ public class StartFragment extends Fragment {
         ListView listView = (ListView) vg.findViewById(R.id.listView);
 
         final String[] VALUES = new String[]{
-                "Snake bite",
-                "Car crash",
-                "Heart attack"
+                "Allergies",
+                "Asthma attack",
+                "Bleeding",
+                "Broke bone",
+                "Burns",
+                "Chocking",
+                "Heart attack",
+                "Strains and sprains"
         };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
@@ -36,7 +41,7 @@ public class StartFragment extends Fragment {
 
                 Toast.makeText(getActivity().getApplicationContext(), "onItemClick", Toast.LENGTH_LONG).show();
 
-                ((MainActivity)getActivity()).setupInstructionScreen();
+                ((MainActivity) getActivity()).setupInstructionScreen();
 
             }
         });
