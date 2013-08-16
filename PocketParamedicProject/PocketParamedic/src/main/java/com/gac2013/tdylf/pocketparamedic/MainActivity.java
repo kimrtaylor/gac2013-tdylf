@@ -1,5 +1,6 @@
 package com.gac2013.tdylf.pocketparamedic;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -10,6 +11,8 @@ import android.app.Activity;
 import android.os.PowerManager;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.ArrayAdapter;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -17,20 +20,38 @@ public class MainActivity extends Activity {
     private PowerManager mPowerManager;
     private PowerManager.WakeLock mWakeLock;
 
+
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.main);
 
-        if (bundle == null){
+        if (bundle == null)
             setupInstructionScreen();
-        }
 
         mPowerManager = (PowerManager) getSystemService(POWER_SERVICE);
         mWakeLock = mPowerManager.newWakeLock(
                 PowerManager.SCREEN_BRIGHT_WAKE_LOCK, getClass().getName());
 
+
+        ActionBar actionBar = getActionBar();
+
+        SpinnerAdapter spinnerAdapter = ArrayAdapter.createFromResource(
+                getActionBar().getThemedContext(),
+                R.array.action_list,
+                android.R.layout.simple_spinner_dropdown_item);
+
+        ActionBar.OnNavigationListener onNavigationListener = new ActionBar.OnNavigationListener() {
+            @Override
+            public boolean onNavigationItemSelected(int position, long itemId) {
+                return true;
+            }
+        };
+
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        actionBar.setListNavigationCallbacks(spinnerAdapter, onNavigationListener);
     }
+
 
     @Override
     public void onResume() {
@@ -87,7 +108,7 @@ public class MainActivity extends Activity {
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                switch (which){
+                switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
                         //Yes button clicked
                         finish();
