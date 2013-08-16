@@ -1,15 +1,30 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
-            android:id="@+id/action_settings"
-            android:title="@string/action_settings"
-            android:orderInCategory="100"
-            android:showAsAction="ifRoom"
-            android:icon="@drawable/ic_action_overflow"/>
+            android:id="@+id/action_log"
+            android:icon="@drawable/ic_action_copy"
+            android:title="Specific cases"
+            android:showAsAction="ifRoom|withText"/>
 
     <item
             android:id="@+id/action_log"
             android:icon="@drawable/ic_action_paste"
             android:title="Log"
-            android:showAsAction="ifRoom"/>
+            android:showAsAction="ifRoom|withText"/>
 
+    <item
+            android:id="@+id/action_settings"
+            android:title="@string/action_settings"/>
+
+    <item
+            android:id="@+id/action_legal_notice"
+            android:title="@string/action_legal_notice"/>
+
+    <item
+            android:id="@+id/action_help"
+            android:title="@string/action_help"/>
+
+    <item
+            android:id="@+id/action_about"
+            android:title="@string/action_about"/>
 </menu>
