@@ -4,11 +4,13 @@ import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.PowerManager;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -20,12 +22,14 @@ public class MainActivity extends Activity {
         super.onCreate(bundle);
         setContentView(R.layout.main);
 
-        if (bundle == null)
-            setupStartScreen();
+        if (bundle == null){
+            setupInstructionScreen();
+        }
 
         mPowerManager = (PowerManager) getSystemService(POWER_SERVICE);
         mWakeLock = mPowerManager.newWakeLock(
                 PowerManager.SCREEN_BRIGHT_WAKE_LOCK, getClass().getName());
+
     }
 
     @Override
