@@ -20,6 +20,7 @@
             android:id="@+id/tvInstr"
             android:layout_gravity="center"
             android:layout_below="@id/ivInstr"
+            android:layout_marginTop="30dp"
             android:textSize="34dp"
 
 
@@ -39,7 +40,7 @@
                 android:text="YES"
                 android:textColor="@android:color/white"
                 android:textSize="66sp"
-                android:background="@android:color/holo_green_dark"
+                android:background="#177339"
                 android:layout_marginRight="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="30dp"
