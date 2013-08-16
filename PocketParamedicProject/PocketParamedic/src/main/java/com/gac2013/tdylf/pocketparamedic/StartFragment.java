@@ -27,7 +27,10 @@ public class StartFragment extends Fragment {
                 "Broke bone",
                 "Burns",
                 "Chocking",
+                "Diabetic emergency",
                 "Heart attack",
+                "Head injury",
+                "Seizure",
                 "Strains and sprains"
         };
 
