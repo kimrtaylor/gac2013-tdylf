@@ -1,38 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
+              android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
         >
 
     <ImageView
-            android:layout_width="225sp"
-            android:layout_height="225sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/ivInstr"
-            android:background="@drawable/logo"
+            android:background="@drawable/log"
             android:layout_gravity="center"
             android:layout_marginBottom="25sp"
             android:layout_marginTop="25sp"
-            />
-
-
-
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/bDoneInstr"
-            android:text="Exit.Thank you for helping."
-            android:textColor="@android:color/white"
-            android:textSize="35sp"
-            android:background="#177339"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginBottom="30dp"
-            android:layout_alignParentLeft="true"
-            android:layout_weight="1"
-
             />
 
 
