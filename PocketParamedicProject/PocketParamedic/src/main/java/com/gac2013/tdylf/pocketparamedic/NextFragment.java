@@ -55,6 +55,7 @@ public class NextFragment extends Fragment
 
         tts = new TextToSpeech(context, this);
 
+        rootView.setBackgroundColor(getResources().getColor(android.R.color.white));
         return rootView;
     }
 
