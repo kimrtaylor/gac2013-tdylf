@@ -20,6 +20,7 @@
             android:id="@+id/tvInstr"
             android:layout_gravity="center"
             android:layout_below="@id/ivInstr"
+            android:layout_marginTop="30dp"
             android:textSize="34dp"
 
 
