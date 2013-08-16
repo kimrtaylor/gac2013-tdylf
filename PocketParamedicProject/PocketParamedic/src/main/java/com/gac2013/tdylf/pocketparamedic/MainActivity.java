@@ -35,10 +35,9 @@ public class MainActivity extends Activity {
 
 
         ActionBar actionBar = getActionBar();
-        //actionBar.setDisplayShowHomeEnabled(false);
-        //actionBar.setDisplayShowTitleEnabled(false);
 
-        SpinnerAdapter spinnerAdapter = ArrayAdapter.createFromResource(this,
+        SpinnerAdapter spinnerAdapter = ArrayAdapter.createFromResource(
+                getActionBar().getThemedContext(),
                 R.array.action_list,
                 android.R.layout.simple_spinner_dropdown_item);
 
