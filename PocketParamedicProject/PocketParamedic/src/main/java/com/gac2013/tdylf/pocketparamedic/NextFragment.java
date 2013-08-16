@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -128,20 +128,20 @@ public class NextFragment extends Fragment
         String c = "";
         for (String s : results)
             c += s + ", ";
-        Toast.makeText(context, c, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(context, c, Toast.LENGTH_SHORT).show();
 
         if (StateMachine.isCurrentStateAsk()) {
             if (indicates(results, yesIndications)) {
-                Toast.makeText(context, "yes", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(context, "yes", Toast.LENGTH_SHORT).show();
                 performYesTransition();
 
             } else if (indicates(results, noIndications)) {
-                Toast.makeText(context, "no", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context, "no", Toast.LENGTH_SHORT).show();
                 performNoTransition();
             }
         } else if (StateMachine.isCurrentStateDo()) {
             if (indicates(results, doneIndications)) {
-                Toast.makeText(context, "done", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(context, "done", Toast.LENGTH_SHORT).show();
                 performDoneTransition();
             }
         }

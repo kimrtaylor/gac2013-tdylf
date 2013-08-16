@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 public class StartFragment extends Fragment {
     @Override
@@ -42,7 +42,7 @@ public class StartFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                Toast.makeText(getActivity().getApplicationContext(), "onItemClick", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getActivity().getApplicationContext(), "onItemClick", Toast.LENGTH_LONG).show();
 
                 ((MainActivity) getActivity()).setupInstructionScreen();
 
